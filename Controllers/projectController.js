@@ -6,7 +6,7 @@ exports.addProject = async (req, res) => {
     console.log(userId)
     const projectImage = req.file.filename;
     console.log(projectImage)
-    const { title, language, github, website, overview } = req.body;
+    const { title, technologies, github, website, overview } = req.body;
     try {
         const existingProject = await projects.findOne({ github: github });
         if (existingProject) {
@@ -15,7 +15,7 @@ exports.addProject = async (req, res) => {
         else {
             const newProject = new projects({
                 title: title,
-                language: language,
+                technologies: technologies,
                 github: github,
                 website: website,
                 overview: overview,
@@ -47,7 +47,7 @@ exports.getAllProject = async (req, res) => {
     const searchKey = req.query.search
     console.log(searchKey)
     const query = {
-        language: {
+        technologies: {
             // regular expression
             // i= to remove case sensitivity
             //( regex: regular expression)
@@ -78,13 +78,13 @@ exports.editUserProject = async (req, res) => {
     const userId = req.payload;
     console.log("project id", id)
     console.log("user id", userId)
-    const { title, language, github, website, overview, projectImage } = req.body;
+    const { title, technologies, github, website, overview, projectImage } = req.body;
     const uploadProjectImage = req.file ? req.file.filename : projectImage;
     try {
         const updateProject = await projects.findByIdAndUpdate(
             { _id: id }, {
             title: title,
-            language: language,
+            technologies: technologies,
             github: github,
             website: website,
             overview: overview,

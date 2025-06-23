@@ -6,7 +6,7 @@ const projectSchema = new mongoose. Schema({
         type: String,
         require: true
     },
-    language: {
+    technologies: {
         type: String,
         require: true
     },

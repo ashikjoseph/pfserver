@@ -1,6 +1,7 @@
 // path to resolve each client request
 const userController= require('../Controllers/userController')
 const projectController = require('../Controllers/projectController')
+const profileController = require('../Controllers/profileController')
 const jwtMiddleware = require('../Middlewares/jwtMiddleware')
 const multerConfig = require('../Middlewares/multerMiddleware')
 
@@ -40,6 +41,16 @@ router.put('/project/edit/:id',jwtMiddleware,multerConfig.single("projectImage")
 
 // 8)delete user project
 router.delete('/project/remove/:id',jwtMiddleware,projectController.deleteUserProject)
+
+// 9) Add profile
+router.post('/profile/add', jwtMiddleware, multerConfig.single('profileImage'), profileController.addProfile);
+
+// 10) Get user profile
+router.get('/user-profile', jwtMiddleware, profileController.getUserProfile);
+
+// 11) Edit user profile
+router.put('/edit-profile/:id', jwtMiddleware, multerConfig.single('profileImage'), profileController.editUserProfile);
+
 
 
 // 4) export router
